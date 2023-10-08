@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  clubtools.api:
+    image: ${DOCKER_REGISTRY-}clubtoolsapi
+    container_name: ClubTools.Api
+    build:
+      context: .
+      dockerfile: src/ClubTools.API/Dockerfile
+    ports:
+        - "5001:443"
+
+  clubtools-db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: ClubTools.Db
+    volumes:
+        - ./.containers/database:/var/opt/mssql/data
+    ports:
+        - "1433:1433"
+    environment:
+        ACCEPT_EULA: "Y"
+        SA_PASSWORD: "P@ssword!"
