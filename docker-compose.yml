@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   clubtools.api:
-    image: ${DOCKER_REGISTRY-}clubtoolsapi
+    image: ${DOCKER_REGISTRY-}clubtools-api
     container_name: ClubTools.Api
     build:
       context: .
@@ -16,7 +16,16 @@ services:
     volumes:
         - ./.containers/database:/var/opt/mssql/data
     ports:
-        - "1433:1433"
+        - 1433:1433
     environment:
         ACCEPT_EULA: "Y"
         SA_PASSWORD: "P@ssword!"
+
+  clubtools-seq:
+    image: datalust/seq:latest
+    container_name: ClubTools.Seq
+    ports:
+        - 5341:5341
+        - 8081:80
+    environment:
+        ACCEPT_EULA: "Y"
