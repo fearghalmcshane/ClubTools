@@ -55,7 +55,7 @@ public class GetActivityEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/activities/{id}", async (Guid id, ISender sender) =>
+        app.MapGet("activities/{id}", async (Guid id, ISender sender) =>
         {
             var query = new GetActivity.Query { Id = id };
 

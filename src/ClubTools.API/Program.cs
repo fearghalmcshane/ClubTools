@@ -4,6 +4,10 @@ using Carter;
 using FluentValidation;
 using ClubTools.Api.Extensions;
 using Serilog;
+using Asp.Versioning;
+using Asp.Versioning.Builder;
+using ClubTools.Api.OpenApi;
+using Asp.Versioning.ApiExplorer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,19 +29,53 @@ builder.Services.AddCarter();
 
 builder.Services.AddValidatorsFromAssembly(assembly);
 
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new Asp.Versioning.ApiVersion(1);
+    options.ApiVersionReader = new UrlSegmentApiVersionReader();
+})
+.AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'V";
+    options.SubstituteApiVersionInUrl = true;
+});
+
+builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
+
 var app = builder.Build();
+
+app.UseSerilogRequestLogging();
+
+ApiVersionSet apiVersionSet = app.NewApiVersionSet()
+            .HasApiVersion(new ApiVersion(1))
+            .HasApiVersion(new ApiVersion(2))
+            .ReportApiVersions()
+            .Build();
+
+RouteGroupBuilder versionedGroup = app
+    .MapGroup("api/v{apiVersion:apiVersion}")
+    .WithApiVersionSet(apiVersionSet);
+
+versionedGroup.MapCarter();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        IReadOnlyList<ApiVersionDescription> descriptions = app.DescribeApiVersions();
+
+        foreach (ApiVersionDescription description in descriptions)
+        {
+            string url = $"/swagger/{description.GroupName}/swagger.json";
+            string name = description.GroupName.ToUpperInvariant();
+
+            options.SwaggerEndpoint(url, name);
+        }
+    });
 
     app.ApplyMigrations();
 }
-
-app.UseSerilogRequestLogging();
-
-app.MapCarter();
 
 app.UseHttpsRedirection();
 

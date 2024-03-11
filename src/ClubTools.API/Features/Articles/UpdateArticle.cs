@@ -81,7 +81,7 @@ public class UpdateArticleEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPut("api/articles", async (UpdateArticleRequest request, ISender sender) =>
+        app.MapPut("articles", async (UpdateArticleRequest request, ISender sender) =>
         {
             var command = request.Adapt<UpdateArticle.Command>();
 

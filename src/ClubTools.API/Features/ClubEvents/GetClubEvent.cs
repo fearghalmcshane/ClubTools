@@ -59,7 +59,7 @@ public class GetClubEventEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/clubevents/{id}", async (Guid id, ISender sender) =>
+        app.MapGet("clubevents/{id}", async (Guid id, ISender sender) =>
         {
             var query = new GetClubEvent.Query { Id = id };
 

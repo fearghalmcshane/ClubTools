@@ -67,7 +67,7 @@ public class DeleteClubEventEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapDelete("api/clubevents/{id}", async (Guid id, ISender sender) =>
+        app.MapDelete("clubevents/{id}", async (Guid id, ISender sender) =>
         {
             var command = new DeleteClubEvent.Command() { Id = id };
 

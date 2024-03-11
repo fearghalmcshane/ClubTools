@@ -102,7 +102,7 @@ public class UpdateClubEventEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPut("api/clubevents", async (UpdateClubEventRequest request, ISender sender) =>
+        app.MapPut("clubevents", async (UpdateClubEventRequest request, ISender sender) =>
         {
             var command = request.Adapt<UpdateClubEvent.Command>();
 

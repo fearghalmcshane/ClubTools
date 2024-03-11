@@ -77,7 +77,7 @@ public class CreateActivityEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("api/activities", async (CreateActivityRequest request, ISender sender) =>
+        app.MapPost("activities", async (CreateActivityRequest request, ISender sender) =>
         {
             var command = request.Adapt<CreateActivity.Command>();
 

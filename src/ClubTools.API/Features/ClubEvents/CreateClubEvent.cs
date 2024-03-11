@@ -95,7 +95,7 @@ public class CreateClubEventEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("api/clubevents", async (CreateClubEventRequest request, ISender sender) =>
+        app.MapPost("clubevents", async (CreateClubEventRequest request, ISender sender) =>
         {
             var command = request.Adapt<CreateClubEvent.Command>();
 

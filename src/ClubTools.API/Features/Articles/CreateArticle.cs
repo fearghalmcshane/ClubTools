@@ -1,4 +1,6 @@
-﻿using Carter;
+﻿using Asp.Versioning;
+using Asp.Versioning.Builder;
+using Carter;
 using ClubTools.Api.Contracts;
 using ClubTools.Api.Database;
 using ClubTools.Api.Entities;
@@ -73,7 +75,7 @@ public class CreateArticleEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("api/articles", async (CreateArticleRequest request, ISender sender) =>
+        app.MapPost("articles", async (CreateArticleRequest request, ISender sender) =>
         {
             var command = request.Adapt<CreateArticle.Command>();
 
