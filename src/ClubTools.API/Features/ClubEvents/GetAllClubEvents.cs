@@ -4,17 +4,17 @@ using ClubTools.Api.Database;
 using ClubTools.Api.Shared;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ClubTools.Api.Features.ClubEvents;
 
-public static class GetClubEvent
+public static class GetAllClubEvents
 {
-    public class Query : IRequest<Result<ClubEventResponse>>
+    public class Query : IRequest<Result<ICollection<ClubEventResponse>>>
     {
-        public Guid Id { get; set; }
     }
 
-    internal sealed class Handler : IRequestHandler<Query, Result<ClubEventResponse>>
+    internal sealed class Handler : IRequestHandler<Query, Result<ICollection<ClubEventResponse>>>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -23,11 +23,10 @@ public static class GetClubEvent
             _dbContext = dbContext;
         }
 
-        public async Task<Result<ClubEventResponse>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<Result<ICollection<ClubEventResponse>>> Handle(Query request, CancellationToken cancellationToken)
         {
             var clubEventResponse = await _dbContext.ClubEvents
                 .AsNoTracking()
-                .Where(clubEvent => clubEvent.Id == request.Id)
                 .Select(clubEvent => new ClubEventResponse
                 {
                     Id = clubEvent.Id,
@@ -41,13 +40,13 @@ public static class GetClubEvent
                     IsPlanned = clubEvent.IsPlanned,
                     CreatedOnUtc = clubEvent.CreatedOnUtc,
                 })
-                .FirstOrDefaultAsync(cancellationToken);
+                .ToListAsync(cancellationToken);
 
-            if (clubEventResponse == null)
+            if (clubEventResponse.IsNullOrEmpty())
             {
-                return Result.Failure<ClubEventResponse>(new Error(
-                    "GetClubEvent.Null",
-                    "The club event with the specified ID was not found"));
+                return Result.Failure<ICollection<ClubEventResponse>>(new Error(
+                    "GetAllClubEvents.Null",
+                    "There are no club events found"));
             }
 
             return clubEventResponse;
@@ -55,13 +54,13 @@ public static class GetClubEvent
     }
 }
 
-public class GetClubEventEndpoint : ICarterModule
+public class GetAllClubEventsEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("clubevents/{id}", async (Guid id, ISender sender) =>
+        app.MapGet("clubevents", async (ISender sender) =>
         {
-            var query = new GetClubEvent.Query { Id = id };
+            var query = new GetAllClubEvents.Query();
 
             var result = await sender.Send(query);
 

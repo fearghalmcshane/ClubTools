@@ -10,19 +10,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ClubTools.API\ClubTools.Api.csproj" />
+    <ProjectReference Include="..\..\ClubTools.Shared\ClubTools.Shared.csproj" />
     <ProjectReference Include="..\ClubTools.Web.Client\ClubTools.Web.Client.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2">
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
-    <PackageReference Include="Serilog.Sinks.Seq" Version="7.0.0" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="7.0.1" />
   </ItemGroup>
 
 </Project>

@@ -4,17 +4,17 @@ using ClubTools.Api.Database;
 using ClubTools.Api.Shared;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ClubTools.Api.Features.Coaching.Activities;
 
-public static class GetActivity
+public static class GetAllActivities
 {
-    public class Query : IRequest<Result<ActivityResponse>>
+    public class Query : IRequest<Result<ICollection<ActivityResponse>>>
     {
-        public Guid Id { get; set; }
     }
 
-    internal sealed class Handler : IRequestHandler<Query, Result<ActivityResponse>>
+    internal sealed class Handler : IRequestHandler<Query, Result<ICollection<ActivityResponse>>>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -23,11 +23,10 @@ public static class GetActivity
             _dbContext = dbContext;
         }
 
-        public async Task<Result<ActivityResponse>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<Result<ICollection<ActivityResponse>>> Handle(Query request, CancellationToken cancellationToken)
         {
             var activityResponse = await _dbContext.Activites
                 .AsNoTracking()
-                .Where(activity => activity.Id == request.Id)
                 .Select(activity => new ActivityResponse
                 {
                     Id = activity.Id,
@@ -37,13 +36,13 @@ public static class GetActivity
                     Equipment = activity.Equipment,
                     ImageUrl = activity.ImageUrl
                 })
-                .FirstOrDefaultAsync(cancellationToken);
+                .ToListAsync(cancellationToken);
 
-            if (activityResponse is null)
+            if (activityResponse.IsNullOrEmpty())
             {
-                return Result.Failure<ActivityResponse>(new Error(
-                    "GetActivity.Null",
-                    "The activity with the specified ID was not found"));
+                return Result.Failure<ICollection<ActivityResponse>>(new Error(
+                    "GetAllActivities.Null",
+                    "There are no activities found"));
             }
 
             return activityResponse;
@@ -51,13 +50,13 @@ public static class GetActivity
     }
 }
 
-public class GetActivityEndpoint : ICarterModule
+public class GetAllActivitiesEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("activities/{id}", async (Guid id, ISender sender) =>
+        app.MapGet("activities", async (ISender sender) =>
         {
-            var query = new GetActivity.Query { Id = id };
+            var query = new GetAllActivities.Query();
 
             var result = await sender.Send(query);
 

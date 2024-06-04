@@ -1,0 +1,26 @@
+﻿@attribute [StreamRendering]
+@inject IArticleService ApiService;
+
+<h1>Club News Articles</h1>
+
+@if (articles == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var article in articles)
+    {
+        <Article ArticleModel=article />
+        <br />
+    }
+}
+
+@code {
+    ICollection<ArticleResponse>? articles = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        articles = await ApiService.GetArticlesAsync();
+    }
+}

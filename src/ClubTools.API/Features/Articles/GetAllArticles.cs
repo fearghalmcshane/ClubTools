@@ -4,17 +4,17 @@ using ClubTools.Api.Database;
 using ClubTools.Api.Shared;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ClubTools.Api.Features.Articles;
 
-public static class GetArticle
+public static class GetAllArticles
 {
-    public class Query : IRequest<Result<ArticleResponse>>
+    public class Query : IRequest<Result<ICollection<ArticleResponse>>>
     {
-        public Guid Id { get; set; }
     }
 
-    internal sealed class Handler : IRequestHandler<Query, Result<ArticleResponse>>
+    internal sealed class Handler : IRequestHandler<Query, Result<ICollection<ArticleResponse>>>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -23,11 +23,10 @@ public static class GetArticle
             _dbContext = dbContext;
         }
 
-        public async Task<Result<ArticleResponse>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<Result<ICollection<ArticleResponse>>> Handle(Query request, CancellationToken cancellationToken)
         {
             var articleResponse = await _dbContext.Articles
                 .AsNoTracking()
-                .Where(article => article.Id == request.Id)
                 .Select(article => new ArticleResponse
                 {
                     Id = article.Id,
@@ -37,13 +36,13 @@ public static class GetArticle
                     CreatedOnUtc = article.CreatedOnUtc,
                     PublishedOnUtc = article.PublishedOnUtc
                 })
-                .FirstOrDefaultAsync(cancellationToken);
+                .ToListAsync(cancellationToken);
 
-            if (articleResponse is null)
+            if (articleResponse.IsNullOrEmpty())
             {
-                return Result.Failure<ArticleResponse>(new Error(
-                    "GetArticle.Null",
-                    "The article with the specified ID was not found"));
+                return Result.Failure<ICollection<ArticleResponse>>(new Error(
+                    "GetAllArticles.Null",
+                    "There are no articles available"));
             }
 
             return articleResponse;
@@ -51,13 +50,13 @@ public static class GetArticle
     }
 }
 
-public class GetArticleEndpoint : ICarterModule
+public class GetAllArticlesEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("articles/{id}", async (Guid id, ISender sender) =>
+        app.MapGet("articles", async (ISender sender) =>
         {
-            var query = new GetArticle.Query { Id = id };
+            var query = new GetAllArticles.Query();
 
             var result = await sender.Send(query);
 

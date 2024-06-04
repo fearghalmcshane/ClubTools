@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClubTools.Web", "src\ClubTo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClubTools.Web.Client", "src\ClubTools.Web\ClubTools.Web.Client\ClubTools.Web.Client.csproj", "{4C93F65E-1573-49D1-AFE3-BBDB28144A5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClubTools.Api.IntegrationTests", "test\ClubTools.Api.IntegrationTests\ClubTools.Api.IntegrationTests.csproj", "{508BC86E-D270-470C-A518-45F6C95F035A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClubTools.Api.IntegrationTests", "test\ClubTools.Api.IntegrationTests\ClubTools.Api.IntegrationTests.csproj", "{508BC86E-D270-470C-A518-45F6C95F035A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClubTools.Shared", "src\ClubTools.Shared\ClubTools.Shared.csproj", "{831AD94B-3E13-47D3-9D07-AD014DA996E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{508BC86E-D270-470C-A518-45F6C95F035A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{508BC86E-D270-470C-A518-45F6C95F035A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{508BC86E-D270-470C-A518-45F6C95F035A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{831AD94B-3E13-47D3-9D07-AD014DA996E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{831AD94B-3E13-47D3-9D07-AD014DA996E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{831AD94B-3E13-47D3-9D07-AD014DA996E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{831AD94B-3E13-47D3-9D07-AD014DA996E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

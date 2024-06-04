@@ -1,7 +1,5 @@
-﻿using Asp.Versioning;
-using Asp.Versioning.Builder;
-using Carter;
-using ClubTools.Api.Contracts;
+﻿using Carter;
+using ClubTools.Shared.Contracts;
 using ClubTools.Api.Database;
 using ClubTools.Api.Entities;
 using ClubTools.Api.Shared;

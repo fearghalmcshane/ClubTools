@@ -1,9 +1,7 @@
-﻿namespace ClubTools.Api.Contracts;
+﻿namespace ClubTools.Shared.Contracts;
 
-public class ActivityResponse
+public class CreateActivityRequest
 {
-    public Guid Id { get; set; }
-
     public string Title { get; set; } = string.Empty;
 
     public string Detail { get; set; } = string.Empty;

@@ -77,7 +77,7 @@ if (app.Environment.IsDevelopment())
     app.ApplyMigrations();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection(); Broken the blazor connection. Maybe CORS? To be looked into...
 
 app.Run();
 

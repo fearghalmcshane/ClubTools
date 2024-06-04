@@ -1,4 +1,4 @@
-﻿namespace ClubTools.Api.Contracts;
+﻿namespace ClubTools.Shared.Contracts;
 
 public class UpdateArticleRequest
 {

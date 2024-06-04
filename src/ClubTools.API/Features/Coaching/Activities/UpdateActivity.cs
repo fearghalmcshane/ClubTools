@@ -1,7 +1,6 @@
 ﻿using Carter;
-using ClubTools.Api.Contracts;
+using ClubTools.Shared.Contracts;
 using ClubTools.Api.Database;
-using ClubTools.Api.Features.Articles;
 using ClubTools.Api.Shared;
 using FluentValidation;
 using Mapster;

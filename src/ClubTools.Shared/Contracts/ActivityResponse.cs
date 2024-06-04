@@ -1,6 +1,6 @@
-﻿namespace ClubTools.Api.Contracts;
+﻿namespace ClubTools.Shared.Contracts;
 
-public class UpdateActivityRequest
+public class ActivityResponse
 {
     public Guid Id { get; set; }
 
