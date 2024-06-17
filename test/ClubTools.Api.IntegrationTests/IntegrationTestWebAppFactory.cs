@@ -22,12 +22,23 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
             var descriptor = services
                 .SingleOrDefault(s => s.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
 
+            var identityDescriptor = services
+                .SingleOrDefault(s => s.ServiceType == typeof(DbContextOptions<IdentityDbContext>));
+
             if (descriptor is not null)
             {
                 services.Remove(descriptor);
             }
 
+            if (identityDescriptor is not null)
+            {
+                services.Remove(identityDescriptor);
+            }
+
             services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(_dbContainer.GetConnectionString()));
+
+            services.AddDbContext<IdentityDbContext>(options =>
                 options.UseSqlServer(_dbContainer.GetConnectionString()));
         });
     }
