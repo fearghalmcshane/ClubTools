@@ -8,6 +8,7 @@ using Asp.Versioning;
 using Asp.Versioning.Builder;
 using ClubTools.Api.OpenApi;
 using Asp.Versioning.ApiExplorer;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,8 +19,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
     c.OrderActionsBy((apiDesc) => $"{apiDesc.ActionDescriptor.RouteValues["controller"]}_{apiDesc.HttpMethod}"));
 
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
+
+builder.Services.AddIdentityCore<User>()
+    .AddEntityFrameworkStores<IdentityDbContext>()
+    .AddApiEndpoints();
+
 builder.Services.AddDbContext<ApplicationDbContext>(o =>
     o.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
+
+builder.Services.AddDbContext<IdentityDbContext>(o =>
+    o.UseSqlServer(builder.Configuration.GetConnectionString("IdentityDb")));
 
 var assembly = typeof(Program).Assembly;
 
@@ -74,10 +85,13 @@ if (app.Environment.IsDevelopment())
         }
     });
 
+    app.ApplyIdentityMigrations();
     app.ApplyMigrations();
 }
 
 //app.UseHttpsRedirection(); Broken the blazor connection. Maybe CORS? To be looked into...
+
+app.MapIdentityApi<User>();
 
 app.Run();
 

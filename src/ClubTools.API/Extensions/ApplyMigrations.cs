@@ -14,4 +14,14 @@ public static class MigrationExtensions
 
         dbContext.Database.Migrate();
     }
+
+    public static void ApplyIdentityMigrations(this WebApplication app)
+    {
+        using var scope = app.Services.CreateScope();
+
+        var dbContext = scope.ServiceProvider
+            .GetRequiredService<IdentityDbContext>();
+
+        dbContext.Database.Migrate();
+    }
 }

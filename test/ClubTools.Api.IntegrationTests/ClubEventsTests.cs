@@ -47,18 +47,18 @@ public class ClubEventsTests : BaseIntegrationTest
         Assert.NotNull(clubEventResponse);
     }
 
-    //[Fact]
-    //public async Task Get_ShouldReturnError_WhenClubEventIsNull()
-    //{
-    //    // Arrange
-    //    var query = new GetClubEvent.Query { Id = Guid.NewGuid() };
+    [Fact]
+    public async Task Get_ShouldReturnError_WhenClubEventIsNull()
+    {
+        // Arrange
+        var query = new GetClubEvent.Query { Id = Guid.NewGuid() };
 
-    //    // Act
-    //    var clubEventResponse = Sender.Send(query);
+        // Act
+        var clubEventResponse = Sender.Send(query);
 
-    //    // Assert
-    //    Assert.True(clubEventResponse.Result.IsFailure);
-    //}
+        // Assert
+        Assert.True(clubEventResponse.Result.IsFailure);
+    }
 
     private async Task<Guid> CreateClubEvent()
     {
