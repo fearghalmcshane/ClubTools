@@ -18,6 +18,10 @@ public class ApplicationDbContext : DbContext
             builder.OwnsOne(a => a.StepVariations, stepsBuilder => stepsBuilder.ToJson());
             builder.OwnsOne(a => a.Equipment, equipmentBuilder => equipmentBuilder.ToJson());
             });
+
+        modelBuilder.Entity<Facility>(builder => {
+            builder.OwnsOne(f => f.Amenities, amenitiesBuilder => amenitiesBuilder.ToJson());
+            });
     }
 
     public DbSet<Article> Articles { get; set; }
@@ -25,4 +29,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<Activity> Activites { get; set; }
 
     public DbSet<ClubEvent> ClubEvents { get; set; }
+
+    public DbSet<Facility> Facilities { get; set; }
 }
