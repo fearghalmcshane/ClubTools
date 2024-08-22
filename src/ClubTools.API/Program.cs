@@ -23,8 +23,26 @@ builder.Services.AddAuthorization();
 builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
 
 builder.Services.AddIdentityCore<User>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<IdentityDbContext>()
     .AddApiEndpoints();
+
+//Add a CORS policy for the client
+//builder.Services.AddCors(
+//    options => options.AddPolicy(
+//        "wasm",
+//       policy => policy.WithOrigins([builder.Configuration["BackendUrl"] ?? "https://localhost:5001",
+//            builder.Configuration["FrontendUrl"] ?? "https://localhost:5002"])
+//            .AllowAnyMethod()
+//            .AllowAnyHeader()
+//            .AllowCredentials()));
+builder.Services.AddCors(
+    options => options.AddPolicy(
+        "AllowBlazorClient",
+       policy => policy.WithOrigins("https://localhost:7020")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()));
 
 builder.Services.AddDbContext<ApplicationDbContext>(o =>
     o.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
@@ -56,6 +74,9 @@ builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
 var app = builder.Build();
 
 app.UseSerilogRequestLogging();
+
+// Use the CORS policy
+app.UseCors("AllowBlazorClient");
 
 ApiVersionSet apiVersionSet = app.NewApiVersionSet()
             .HasApiVersion(new ApiVersion(1))

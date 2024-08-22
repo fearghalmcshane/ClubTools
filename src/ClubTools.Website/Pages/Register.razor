@@ -1,0 +1,63 @@
+﻿@page "/register"
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+
+<h3>Register</h3>
+
+<EditForm Model="registrationModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <InputText id="email" class="form-control" @bind-Value="registrationModel.Email" />
+        <ValidationMessage For="@(() => registrationModel.Email)" />
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <InputText id="password" type="password" class="form-control" @bind-Value="registrationModel.Password" />
+        <ValidationMessage For="@(() => registrationModel.Password)" />
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <InputText id="confirmPassword" type="password" class="form-control" @bind-Value="registrationModel.ConfirmPassword" />
+        <ValidationMessage For="@(() => registrationModel.ConfirmPassword)" />
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</EditForm>
+
+<br />
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+
+@code {
+    private RegistrationModel registrationModel = new RegistrationModel();
+    private string? errorMessage;
+
+    private async Task HandleValidSubmit()
+    {
+        var result = await AuthService.Register(registrationModel);
+
+        if (result.IsSuccess)
+        {
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            // Handle registration failure (e.g., show error message)
+            errorMessage = result.Message;
+        }
+    }
+}

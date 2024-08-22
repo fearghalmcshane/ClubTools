@@ -1,0 +1,55 @@
+﻿@page "/login"
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+
+<h3>Login</h3>
+
+<EditForm Model="loginModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <InputText id="email" class="form-control" @bind-Value="loginModel.Email" />
+        <ValidationMessage For="@(() => loginModel.Email)" />
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <InputText id="password" type="password" class="form-control" @bind-Value="loginModel.Password" />
+        <ValidationMessage For="@(() => loginModel.Password)" />
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">Login</button>
+</EditForm>
+
+<br />
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+
+@code {
+    private LoginModel loginModel = new LoginModel();
+    private string errorMessage;
+
+    private async Task HandleValidSubmit()
+    {
+        var result = await AuthService.Login(loginModel);
+        if (result.IsSuccess)
+        {
+            // Redirect to the home page after successful login
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            // Display error message
+            errorMessage = "Invalid login attempt.";
+        }
+    }
+}
