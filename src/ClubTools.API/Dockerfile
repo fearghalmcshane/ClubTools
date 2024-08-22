@@ -7,14 +7,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["src/ClubTools.API/ClubTools.API.csproj", "src/ClubTools.API/"]
-RUN dotnet restore "src/ClubTools.API/ClubTools.API.csproj"
+COPY ["src/ClubTools.API/ClubTools.Api.csproj", "src/ClubTools.API/"]
+RUN dotnet restore "src/ClubTools.API/ClubTools.Api.csproj"
 COPY . .
 WORKDIR "/src/src/ClubTools.API"
-RUN dotnet build "ClubTools.API.csproj" -c Release -o /app/build
+RUN dotnet build "ClubTools.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "ClubTools.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "ClubTools.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
