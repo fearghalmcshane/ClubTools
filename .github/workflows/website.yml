@@ -19,10 +19,10 @@ jobs:
           dotnet-version: "8.0.x"
 
       - name: Build
-        run: dotnet build ClubTools.Website --configuration Release
+        run: dotnet build ./src/ClubTools.Website/ClubTools.Website.csproj --configuration Release
 
       - name: Publish
-        run: dotnet publish ClubTools.Website --configuration Release --output ./publish --no-build
+        run: dotnet publish ./src/ClubTools.Website/ClubTools.Website.csproj --configuration Release --output ./publish --no-build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

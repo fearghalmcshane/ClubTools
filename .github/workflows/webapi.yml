@@ -26,7 +26,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./ClubTools.Api/Dockerfile
+          file: ./src/ClubTools.Api/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/clubtools-api:latest
 #   deploy:
