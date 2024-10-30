@@ -1,7 +1,7 @@
 ﻿using ClubTools.Shared.Contracts;
 using System.Net.Http.Json;
 
-namespace ClubTools.Website.Services.ArticleService;
+namespace ClubTools.UI.Shared.Services.ArticleService;
 
 public sealed class ArticleService : IArticleService
 {

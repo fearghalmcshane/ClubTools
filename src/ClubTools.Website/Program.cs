@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using ClubTools.Website;
-using ClubTools.Website.Services.ArticleService;
-using ClubTools.Website.Services.AuthService;
+using ClubTools.UI.Shared;
+using ClubTools.UI.Shared.Services.ArticleService;
+using ClubTools.UI.Shared.Services.AuthService;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

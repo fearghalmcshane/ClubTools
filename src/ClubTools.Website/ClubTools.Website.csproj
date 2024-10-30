@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ClubTools.Shared\ClubTools.Shared.csproj" />
+    <ProjectReference Include="..\ClubTools.UI.Shared\ClubTools.UI.Shared.csproj" />
   </ItemGroup>
 
 </Project>

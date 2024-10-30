@@ -2,7 +2,7 @@
 using ClubTools.Shared.Models;
 using System.Net.Http.Json;
 
-namespace ClubTools.Website.Services.AuthService
+namespace ClubTools.UI.Shared.Services.AuthService
 {
     public class AuthService : IAuthService
     {

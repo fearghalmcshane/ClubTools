@@ -1,7 +1,7 @@
 ﻿using ClubTools.Shared;
 using ClubTools.Shared.Models;
 
-namespace ClubTools.Website.Services.AuthService
+namespace ClubTools.UI.Shared.Services.AuthService
 {
     public interface IAuthService
     {

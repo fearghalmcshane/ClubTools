@@ -1,6 +1,6 @@
 ﻿using ClubTools.Shared.Contracts;
 
-namespace ClubTools.Website.Services.ArticleService;
+namespace ClubTools.UI.Shared.Services.ArticleService;
 
 public interface IArticleService
 {
