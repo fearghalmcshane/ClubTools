@@ -33,7 +33,7 @@ public static class GetAllFacilities
                     Name = facility.Name,
                     Description = facility.Description,
                     MaxOccupancy = facility.MaxOccupancy,
-                    Amenities = facility.Amenities
+                    Amenities = facility.Amenities.ToList()
                 })
                 .ToListAsync(cancellationToken);
 

@@ -10,5 +10,5 @@ public class Facility
 
     public int MaxOccupancy { get; set; }
 
-    public List<String> Amenities { get; set; } = new();
+    public ICollection<String>? Amenities { get; set; }
 }

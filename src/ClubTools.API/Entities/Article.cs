@@ -8,7 +8,7 @@ public class Article
 
     public string Content { get; set; } = string.Empty;
 
-    public List<string> Tags { get; set; } = new();
+    public ICollection<string>? Tags { get; set; }
 
     public DateTime CreatedOnUtc { get; set; }
 

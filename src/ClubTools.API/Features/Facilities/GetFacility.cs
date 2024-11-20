@@ -34,7 +34,7 @@ public static class GetFacility
                     Name = facility.Name,
                     Description = facility.Description,
                     MaxOccupancy = facility.MaxOccupancy,
-                    Amenities = facility.Amenities
+                    Amenities = facility.Amenities.ToList()
                 })
                 .FirstOrDefaultAsync(cancellationToken);
 

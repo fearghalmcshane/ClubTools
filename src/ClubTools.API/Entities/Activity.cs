@@ -8,9 +8,9 @@ public class Activity
 
     public string Detail { get; set; } = string.Empty;
 
-    public List<string> StepVariations { get; set; } = new();
+    public ICollection<string>? StepVariations { get; set; }
 
-    public List<string> Equipment { get; set; } = new();
+    public ICollection<string>? Equipment { get; set; }
 
     public string ImageUrl { get; set; } = string.Empty;
 }

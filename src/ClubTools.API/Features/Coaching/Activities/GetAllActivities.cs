@@ -32,8 +32,8 @@ public static class GetAllActivities
                     Id = activity.Id,
                     Title = activity.Title,
                     Detail = activity.Detail,
-                    StepVariations = activity.StepVariations,
-                    Equipment = activity.Equipment,
+                    StepVariations = activity.StepVariations.ToList(),
+                    Equipment = activity.Equipment.ToList(),
                     ImageUrl = activity.ImageUrl
                 })
                 .ToListAsync(cancellationToken);

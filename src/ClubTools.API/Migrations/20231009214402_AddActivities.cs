@@ -19,8 +19,8 @@ namespace ClubTools.Api.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Detail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Equipment = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StepVariations = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Equipment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StepVariations = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

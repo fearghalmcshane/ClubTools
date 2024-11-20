@@ -19,7 +19,7 @@ namespace ClubTools.Api.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MaxOccupancy = table.Column<int>(type: "int", nullable: false),
-                    Amenities = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Amenities = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

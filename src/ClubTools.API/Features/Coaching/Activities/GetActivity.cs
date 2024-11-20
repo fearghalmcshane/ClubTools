@@ -33,8 +33,8 @@ public static class GetActivity
                     Id = activity.Id,
                     Title = activity.Title,
                     Detail = activity.Detail,
-                    StepVariations = activity.StepVariations,
-                    Equipment = activity.Equipment,
+                    StepVariations = activity.StepVariations.ToList(),
+                    Equipment = activity.Equipment.ToList(),
                     ImageUrl = activity.ImageUrl
                 })
                 .FirstOrDefaultAsync(cancellationToken);
